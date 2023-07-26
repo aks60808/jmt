@@ -19,7 +19,7 @@ const Home: NextPage = () => {
       <PageLayout>
         <div className="">
           <Image
-            src="/bar.jpg"
+            src="/bar.JPG"
             alt="JMT bar"
             width={0}
             height={0}
