@@ -13,6 +13,7 @@ const Home: NextPage = () => {
   // return empty div if user isn't loaded yet
   if (!userLoaded) return <div />;
   // if (isSignedIn && !user.id) return <div>loading...</div>;
+  console.log("user", user);
 
   return (
     <>
@@ -121,14 +122,14 @@ const Home: NextPage = () => {
                   <Image
                     src={user.profileImageUrl}
                     className="h-14 w-14  rounded-full "
-                    alt={`@${user.username}'s profile picture`}
+                    alt={`@${user.username ?? user.fullName}'s profile picture`}
                     width={56}
                     height={56}
                   />
                   <div className="flex flex-col">
                     <div className="flex gap-1 text-slate-300">
                       <Link href={`/@${user.username}`}>
-                        <span>{`@${user.username} `}</span>
+                        <span>{`@${user.username ?? user.fullName} `}</span>
                       </Link>
                       {/* <Link href={`/post/${post.id}`}>
                             <span className="font-thin">{` · ${dayjs(

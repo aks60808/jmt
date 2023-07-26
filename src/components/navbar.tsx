@@ -32,10 +32,10 @@ const NavBar = () => {
 
           {/* PRIMARY NAV */}
           <div className="hidden items-center space-x-1 md:flex">
-            <Link className="px-3 py-4 hover:text-slate-400" href="#">
+            <Link className="px-3 py-4 hover:text-slate-400" href="/">
               Home
             </Link>
-            <Link className="px-3 py-4 hover:text-slate-400" href="#">
+            <Link className="px-3 py-4 hover:text-slate-400" href="/request">
               Request a Drink
             </Link>
           </div>
@@ -49,7 +49,9 @@ const NavBar = () => {
           )}
           {isSignedIn && (
             <div className="flex">
-              <span className="px-2">Welcome, {user.username}</span>
+              <span className="px-2">
+                Welcome, {user.username ?? user.fullName}
+              </span>
               <UserButton afterSignOutUrl={"/"} />
             </div>
           )}
@@ -66,8 +68,8 @@ const NavBar = () => {
               className="h-6 w-6"
             >
               <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokelinecap="round"
+                strokeLinejoin="round"
                 d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
               />
             </svg>
@@ -82,7 +84,7 @@ const NavBar = () => {
         </Link>
         <Link
           className="block px-2 py-3 text-sm hover:text-slate-400"
-          href="request"
+          href="/request"
         >
           Request a Drink
         </Link>
