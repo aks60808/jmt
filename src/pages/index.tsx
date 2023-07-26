@@ -140,7 +140,7 @@ const Home: NextPage = () => {
                       Excellent taste and presentation. French style portions
                       size . We went for the set menu with 3 dishes: entree,
                       main and dessert. But if one person in the table wants to
-                      go for a single dish can't. All in all out.😍
+                      go for a single dish cannot. All in all out.😍
                     </p>
                   </div>
                 </div>
