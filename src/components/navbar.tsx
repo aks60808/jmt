@@ -4,7 +4,8 @@ import { useUser, SignInButton, UserButton } from "@clerk/nextjs";
 import * as React from "react";
 
 import Link from "next/link";
-
+import { toast } from "react-hot-toast";
+import { set } from "zod";
 const NavBar = () => {
   const { isSignedIn, user } = useUser();
 

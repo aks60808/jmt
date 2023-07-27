@@ -14,30 +14,29 @@ const Home: NextPage = () => {
   if (!userLoaded) return <div />;
   // if (isSignedIn && !user.id) return <div>loading...</div>;
   console.log("user", user);
-
   return (
     <>
       <PageLayout>
         <div className="">
-          <Image
-            src="/bar.JPG"
-            alt="JMT bar"
-            width={0}
-            height={0}
-            sizes="100vw"
-            style={{
-              width: "100%",
-              height: "auto",
-            }}
-          />
-        </div>
-        <div className="flex flex-col text-center">
-          <div className=" flex flex-col p-4 ">
-            <h1 className="text-5xl">Welcome to JMT Bistro</h1>
-            <p className=" text-xl italic">A place to lift your spirit</p>
+          <div className="flex cursor-default  flex-col items-center justify-center">
+            <div className="h-screen w-full bg-[url('/bar.JPG')] bg-cover bg-center">
+              <div
+                className="flex h-full w-full flex-col items-center  justify-center bg-slate-600/50 
+             backdrop-brightness-75"
+              >
+                <span className=" text-center text-5xl  text-slate-100">
+                  Welcome to JMT Bistro
+                </span>
+                <p className="text-xl italic text-slate-100">
+                  {" "}
+                  A place to lift your spirit
+                </p>
+              </div>
+            </div>
           </div>
-
-          <hr className="mx-auto my-4 h-1 w-48 rounded border-0 bg-gray-300 dark:bg-gray-700 md:my-10" />
+        </div>
+        <div className="flex flex-col py-2 text-center">
+          {/* <hr className="mx-auto my-4 h-1 w-48 rounded border-0 bg-gray-300 dark:bg-gray-700 md:my-10" /> */}
 
           <div className="border-1 border-slate-900 ">
             <a className=" text-3xl">Cocktail Released</a>
