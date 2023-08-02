@@ -25,9 +25,19 @@ model Cocktail {
   createdAt  DateTime  @default(now())
   base       String @db.VarChar(255)
   story      String @db.VarChar(255)
-  recipe     Json @db.Json
+  recipe     Json @db.Json 
 
   @@index([name])
   
 
+}
+
+model Post {
+    id        String   @id @default(cuid())
+    createdAt DateTime @default(now())
+
+    content  String @db.VarChar(255)
+    authorId String
+
+    @@index([authorId])
 }
