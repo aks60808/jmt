@@ -88,20 +88,18 @@ const CreatePostWizard = () => {
         </div>
       </div>
       {/* second row textarea */}
-
       <div className="flex w-full  gap-3">
         <Textarea
-          placeholder="Type your message here."
+          rows={10}
+          className=""
+          placeholder="Leave your review here :)"
           value={input}
           onChange={(e) => setInput(e.target.value)}
+          disabled={isPosting}
           onKeyDown={(e) => {
             if (e.key === "Enter") {
-              e.preventDefault();
-              if (input !== "")
-                mutate({ content: input, rate: hoverRating ?? 5 });
             }
           }}
-          disabled={isPosting}
         />
       </div>
       {/* third row */}
@@ -201,7 +199,7 @@ const SkeletonPost = () => {
 };
 const Home: NextPage = () => {
   const { isLoaded: userLoaded, isSignedIn } = useUser();
-
+  const [reviewClicked, setReviewClicked] = useState<boolean>(false);
   // start fetching asap (react will use this cache)
   api.posts.getAll.useQuery();
   api.cocktails.getAll.useQuery();
@@ -249,7 +247,19 @@ const Home: NextPage = () => {
                   *** Please sign in to leave your review :) ***
                 </span>
               )}
-              {isSignedIn && (
+              <div>
+                {!reviewClicked && (
+                  <button
+                    onClick={(e) => {
+                      setReviewClicked(!reviewClicked);
+                    }}
+                    className="bold rounded-xl border bg-slate-800 p-3 text-xl text-slate-100"
+                  >
+                    Leave your review!
+                  </button>
+                )}
+              </div>
+              {isSignedIn && reviewClicked && (
                 <div className="flex p-6">
                   <CreatePostWizard />
                 </div>
