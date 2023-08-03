@@ -35,7 +35,7 @@ model Cocktail {
 model Post {
     id        String   @id @default(cuid())
     createdAt DateTime @default(now())
-
+    rate      Float    @default(5)
     content  String @db.VarChar(255)
     authorId String
 

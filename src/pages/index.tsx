@@ -6,46 +6,120 @@ import { RouterOutputs, api } from "~/utils/api";
 import { PageLayout } from "~/components/layout";
 import { useState } from "react";
 import { LoadingPage, LoadingSpinner } from "~/components/loading";
+import { Skeleton } from "@/components/ui/skeleton";
+import { Textarea } from "@/components/ui/textarea";
+import { Button } from "@/components/ui/button";
+import RatingStars from "~/components/ratingstars";
+import { toast } from "react-hot-toast";
 
 type PostWIthUser = RouterOutputs["posts"]["getAll"][number];
 const PostView = (props: PostWIthUser) => {
   const { post, author } = props;
   return (
     <div key={post.id} className="flex gap-3 p-4 ">
-      <Image
-        src={author.profilePicture}
-        alt={`${author.username}`}
-        className="h-14 w-14 rounded-full"
-        width={56}
-        height={56}
-      />
-      <div className=" flex flex-col">
-        <div className="flex text-slate-600">
-          <span className="mr-3">{author.username}</span>
-          <span className="flex">{`on ${post.createdAt.toDateString()}`}</span>
+      <div className="flex-col">
+        <div className="flex items-center pb-3">
+          <Image
+            src={author.profilePicture}
+            alt={`${author.username}`}
+            className="mr-1 h-14 w-14 rounded-full"
+            width={56}
+            height={56}
+          />
+          <div className=" ml-3 flex flex-col">
+            <div className="flex flex-col text-slate-600">
+              <div className="flex justify-start">
+                <span>{author.username}</span>
+              </div>
+
+              <span className="flex">{`${post.createdAt.toDateString()}`}</span>
+              <RatingStars rating={post.rate} fixed={true} />
+            </div>
+          </div>
         </div>
 
-        <span className="flex">{post.content}</span>
+        <span className="flex  text-left">{post.content}</span>
       </div>
     </div>
   );
 };
 const CreatePostWizard = () => {
   const { user } = useUser();
+  const [hoverRating, setHoverRating] = useState<number | null>(null);
+  const [input, setInput] = useState<string>("");
+
+  const ctx = api.useContext();
+
+  const { mutate, isLoading: isPosting } = api.posts.create.useMutation({
+    onSuccess: () => {
+      setInput("");
+      void ctx.posts.getAll.invalidate();
+    },
+    onError: (e) => {
+      const errorMessage = e.data?.zodError?.fieldErrors.content;
+      if (errorMessage) {
+        if (errorMessage[0]) toast.error(errorMessage[0]);
+      } else {
+        toast.error("Failed to post! Please try again later.");
+      }
+    },
+  });
+
   if (!user) return null;
   return (
-    <div className="flex  gap-3 ">
-      <Image
-        src={user.profileImageUrl}
-        alt="profile"
-        className="h-14 w-14 rounded-full"
-        width={56}
-        height={56}
-      />
-      <input
-        placeholder="leave your review"
-        className="bg-transparent outline-none"
-      />
+    <div className=" flex w-full flex-col  items-center justify-between  gap-3">
+      {/* first row */}
+      <div className="flex w-full  gap-3">
+        <Image
+          src={user.profileImageUrl}
+          alt="profile"
+          className="h-14 w-14 rounded-full"
+          width={56}
+          height={56}
+        />
+        <div className="flex flex-col">
+          <span className="flex">{user.fullName}</span>
+          <RatingStars
+            hoverHandler={setHoverRating}
+            rating={5}
+            fixed={false}
+            hoverRating={hoverRating}
+          />
+        </div>
+      </div>
+      {/* second row textarea */}
+
+      <div className="flex w-full  gap-3">
+        <Textarea
+          placeholder="Type your message here."
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              e.preventDefault();
+              if (input !== "")
+                mutate({ content: input, rate: hoverRating ?? 5 });
+            }
+          }}
+          disabled={isPosting}
+        />
+      </div>
+      {/* third row */}
+
+      <div className="flex items-center">
+        {input !== "" && !isPosting && (
+          <Button
+            variant="outline"
+            className="flex h-8 w-14 rounded-md border bg-slate-400 text-slate-100 "
+            onClick={() => {
+              mutate({ content: input, rate: hoverRating ?? 5 });
+            }}
+          >
+            Post
+          </Button>
+        )}
+        {isPosting && <LoadingSpinner />}
+      </div>
     </div>
   );
 };
@@ -123,18 +197,57 @@ const CocktailSection = () => {
     </div>
   );
 };
-const Home: NextPage = () => {
-  const { isLoaded: userLoaded, isSignedIn, user } = useUser();
+
+const ReviewsPosts = () => {
   const { data, isLoading: dataLoading } = api.posts.getAll.useQuery();
+  if (dataLoading)
+    return (
+      <div className=" mb-6 flex w-full gap-3 rounded-2xl border-2 p-6">
+        <div className="w-full">
+          <SkeletonPost />
+        </div>
+      </div>
+    );
+  if (!data) return null;
+  return (
+    <div className=" mb-6 flex w-full gap-3 rounded-2xl border-2 p-6">
+      <div className="w-full">
+        {/* <SkeletonPost /> */}
+        {[...data]?.map((fullPost) => (
+          <PostView {...fullPost} key={fullPost.post.id} />
+        ))}
+      </div>
+    </div>
+  );
+};
+
+const SkeletonPost = () => {
+  return (
+    <div className="flex gap-3 p-4 ">
+      <div className="flex-col">
+        <div className="flex pb-3">
+          <Skeleton className="h-12 w-12 rounded-full bg-slate-100" />
+          <div className=" ml-3 flex flex-col">
+            <div className="flex flex-col gap-3 text-slate-600">
+              <Skeleton className="h-4 w-[100px] bg-slate-100" />
+              <Skeleton className="h-4 w-[100px] bg-slate-100" />{" "}
+            </div>
+          </div>
+        </div>
+        <Skeleton className="h-4 w-[400px] bg-slate-100" />
+      </div>
+    </div>
+  );
+};
+const Home: NextPage = () => {
+  const { isLoaded: userLoaded, isSignedIn } = useUser();
+
   // start fetching asap (react will use this cache)
-  // api.posts.getAll.useQuery();
+  api.posts.getAll.useQuery();
+  api.cocktails.getAll.useQuery();
   // return empty div if user isn't loaded yet
   if (!userLoaded) return <div />;
-  if (dataLoading) return <LoadingPage />;
-  if (!data) return <div>Something went wrong</div>;
-  // if (isSignedIn && !user.id) return <div>loading...</div>;
-  console.log("user", user);
-  console.log("posts", data);
+
   return (
     <>
       <PageLayout>
@@ -149,7 +262,6 @@ const Home: NextPage = () => {
                   Welcome to JMT Bistro
                 </span>
                 <p className="text-xl italic text-slate-100">
-                  {" "}
                   A place to lift your spirit
                 </p>
               </div>
@@ -166,19 +278,16 @@ const Home: NextPage = () => {
             </p>
             <CocktailSection />
           </div>
-          <hr className="mx-auto my-4 h-1 w-48 rounded border-0 bg-gray-300 dark:bg-gray-700 md:my-10" />
+          {/* <hr className="mx-auto my-4 h-1 w-48 rounded border-0 bg-gray-300 dark:bg-gray-700 md:my-10" /> */}
 
           <div className="border-1 border-slate-900 ">
-            <h2 className="pb-6 text-3xl">Reviews</h2>
-            <div className="container">
-              {user && (
-                <div className=" mb-6 flex w-full gap-3 rounded-2xl border-2 p-6">
-                  <div className="w-full">
-                    {[...data]?.map((fullPost) => (
-                      <PostView {...fullPost} key={fullPost.post.id} />
-                    ))}
-                  </div>
-                </div>
+            <h2 className="text-3xl">Reviews</h2>
+            <div className="container pt-3">
+              <ReviewsPosts />
+              {!isSignedIn && (
+                <span className="flex justify-center pb-3 italic text-slate-400">
+                  *** Please sign in to leave your review :) ***
+                </span>
               )}
               {isSignedIn && (
                 <div className="flex p-6">
