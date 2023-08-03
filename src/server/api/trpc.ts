@@ -58,18 +58,6 @@ export const createTRPCContext = (opts: CreateNextContextOptions) => {
   return createContextInner({ auth: getAuth(opts.req) });
 };
 
-export type Context = inferAsyncReturnType<typeof createTRPCContext>;
-// export const createTRPCContext = (opts: CreateNextContextOptions) => {
-//   const { req } = opts;
-//   const sesh = getAuth(req);
-//   const userId = sesh.userId;
-
-//   return {
-//     prisma,
-//     userId,
-//   };
-// };
-
 /**
  * 2. INITIALIZATION
  *

@@ -7,7 +7,7 @@ export default authMiddleware({
   publicRoutes: [
     "/",
     "/about",
-    "/api/trpc/cocktails.getAll,posts.getAll",
+    "/api/trpc/posts.getAll,cocktails.getAll",
     "/request",
   ],
 });

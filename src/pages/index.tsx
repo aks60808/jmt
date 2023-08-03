@@ -126,18 +126,23 @@ const CreatePostWizard = () => {
 const CocktailSection = () => {
   const { data, isLoading: postsLoading } = api.cocktails.getAll.useQuery();
   if (postsLoading) return <LoadingPage />;
-  console.log("data", data);
+  console.log("cocktails", data);
+  if (!data) return null;
   return (
     <div>
       <ul className="flex flex-wrap justify-evenly p-2">
-        <li className="p-2">
+        {[...data]?.map((cocktail) => {
+          return <li key={cocktail.name}>{cocktail.name}</li>;
+        })}
+        ;
+        {/* <li className="p-2">
           <Image
             width={100}
             height={200}
             alt="cocktail1"
             src="/cocktail1.jpg"
           />
-          Monk
+          {data[0].name}
         </li>
         <li className="p-2">
           <Image
@@ -147,52 +152,7 @@ const CocktailSection = () => {
             src="/cocktail1.jpg"
           />
           Monk
-        </li>
-        <li className="p-2">
-          <Image
-            width={100}
-            height={200}
-            alt="cocktail1"
-            src="/cocktail1.jpg"
-          />
-          Monk
-        </li>
-        <li className="p-2">
-          <Image
-            width={100}
-            height={200}
-            alt="cocktail1"
-            src="/cocktail1.jpg"
-          />
-          Monk
-        </li>
-        <li className="p-2">
-          <Image
-            width={100}
-            height={200}
-            alt="cocktail1"
-            src="/cocktail1.jpg"
-          />
-          Monk
-        </li>
-        <li className="p-2">
-          <Image
-            width={100}
-            height={200}
-            alt="cocktail1"
-            src="/cocktail1.jpg"
-          />
-          Monk
-        </li>
-        <li className="p-2">
-          <Image
-            width={100}
-            height={200}
-            alt="cocktail1"
-            src="/cocktail1.jpg"
-          />
-          Monk
-        </li>
+        </li> */}
       </ul>
     </div>
   );
@@ -209,10 +169,10 @@ const ReviewsPosts = () => {
       </div>
     );
   if (!data) return null;
+  console.log("posts", data);
   return (
     <div className=" mb-6 flex w-full gap-3 rounded-2xl border-2 p-6">
       <div className="w-full">
-        {/* <SkeletonPost /> */}
         {[...data]?.map((fullPost) => (
           <PostView {...fullPost} key={fullPost.post.id} />
         ))}
