@@ -128,19 +128,19 @@ const CocktailSection = () => {
   if (!data) return null;
   return (
     <div>
-      <ul className="flex flex-wrap justify-evenly p-2">
-        {[...data]?.map((cocktail) => {
+      <ul className="flex flex-wrap  justify-evenly p-2">
+        {/* {[...data]?.map((cocktail) => {
           return <li key={cocktail.name}>{cocktail.name}</li>;
-        })}
-        ;
-        {/* <li className="p-2">
+        })} */}
+
+        <li className="p-2">
           <Image
             width={100}
             height={200}
             alt="cocktail1"
             src="/cocktail1.jpg"
           />
-          {data[0].name}
+          {data[0]?.name}
         </li>
         <li className="p-2">
           <Image
@@ -149,8 +149,8 @@ const CocktailSection = () => {
             alt="cocktail1"
             src="/cocktail1.jpg"
           />
-          Monk
-        </li> */}
+          {data[1]?.name}
+        </li>
       </ul>
     </div>
   );
@@ -244,13 +244,14 @@ const Home: NextPage = () => {
               <ReviewsPosts />
               {!isSignedIn && (
                 <span className="flex justify-center pb-3 italic text-slate-400">
-                  *** Please sign in to leave your review :) ***
+                  Sign in to leave your review🥰
                 </span>
               )}
               <div>
-                {!reviewClicked && (
+                {isSignedIn && !reviewClicked && (
                   <button
                     onClick={(e) => {
+                      e.preventDefault();
                       setReviewClicked(!reviewClicked);
                     }}
                     className="bold rounded-xl border bg-slate-800 p-3 text-xl text-slate-100"
