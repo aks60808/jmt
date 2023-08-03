@@ -4,7 +4,7 @@ import { authMiddleware } from "@clerk/nextjs";
 // Please edit this to allow other routes to be public as needed.
 // See https://clerk.com/docs/nextjs/middleware for more information about configuring your middleware
 export default authMiddleware({
-  publicRoutes: ["/", "/about", "/api/trpc/posts.getAll,cocktails.getAll"],
+  publicRoutes: ["/", "/about", "/(en)/api/trpc/cocktails.getAll,posts.getAll"],
 });
 // Stop Middleware running on static files
 
