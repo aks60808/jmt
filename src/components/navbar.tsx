@@ -45,7 +45,9 @@ const NavBar = () => {
         <div className="mr-2 hidden items-center  md:flex">
           {!isSignedIn && (
             <a className="px-3 py-4 hover:text-slate-400">
-              <SignInButton />
+              <SignInButton mode="modal">
+                <button>Sign in</button>
+              </SignInButton>
             </a>
           )}
           {isSignedIn && (
@@ -91,7 +93,9 @@ const NavBar = () => {
         </Link>
         {!isSignedIn && (
           <a className="block px-2 py-3 text-sm hover:text-slate-400">
-            <SignInButton />
+            <SignInButton mode="modal">
+              <button>Sign in</button>
+            </SignInButton>
           </a>
         )}
       </div>

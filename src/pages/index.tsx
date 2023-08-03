@@ -244,7 +244,12 @@ const Home: NextPage = () => {
               <ReviewsPosts />
               {!isSignedIn && (
                 <span className="flex justify-center pb-3 italic text-slate-400">
-                  Sign in to leave your review🥰
+                  <SignInButton mode="modal">
+                    <button className="btn p-3 text-xl italic">
+                      <span className="font-bold text-slate-600">Sign in</span>
+                      <span> to leave your review🥰</span>
+                    </button>
+                  </SignInButton>
                 </span>
               )}
               <div>
