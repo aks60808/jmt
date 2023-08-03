@@ -14,16 +14,18 @@ const RatingStars: React.FC<RatingStarsProps> = ({
   hoverRating,
 }) => {
   const handleMouseOver = (index: number) => {
+    if (hoverHandler === undefined) return;
     hoverHandler(index);
   };
 
   const handleMouseLeave = () => {
+    if (hoverHandler === undefined) return;
     hoverHandler(null);
   };
 
   return (
     <div className="flex items-center">
-      {[...Array(5)].map((_, index) => (
+      {[...Array<number>(5)].map((_, index) => (
         <svg
           key={index}
           className={`h-6 w-6 fill-current ${
@@ -33,7 +35,11 @@ const RatingStars: React.FC<RatingStarsProps> = ({
           }`}
           viewBox="0 0 20 20"
           xmlns="http://www.w3.org/2000/svg"
-          onMouseOver={!fixed ? () => handleMouseOver(index + 1) : undefined}
+          onMouseOver={
+            !fixed && hoverHandler
+              ? () => handleMouseOver(index + 1)
+              : undefined
+          }
           onMouseLeave={!fixed ? () => handleMouseLeave : undefined}
         >
           <path
