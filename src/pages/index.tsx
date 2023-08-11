@@ -45,6 +45,7 @@ const PostView = (props: PostWIthUser) => {
 };
 const CreatePostWizard = () => {
   const { user } = useUser();
+  console.log("user", user);
   const [hoverRating, setHoverRating] = useState<number | null>(null);
   const [input, setInput] = useState<string>("");
 
@@ -208,72 +209,70 @@ const Home: NextPage = () => {
 
   return (
     <>
-      <PageLayout>
-        <div className="">
-          <div className="flex cursor-default  flex-col items-center justify-center">
-            <div className="h-screen w-full bg-[url('/bar.JPG')] bg-cover bg-center">
-              <div
-                className="flex h-screen w-full flex-col items-center  justify-center bg-slate-600/50 
+      <div className="">
+        <div className="flex cursor-default  flex-col items-center justify-center">
+          <div className="h-screen w-full bg-[url('/bar.JPG')] bg-cover bg-center">
+            <div
+              className="flex h-screen w-full flex-col items-center  justify-center bg-slate-600/50 
              backdrop-brightness-75"
-              >
-                <span className=" text-center text-5xl  text-slate-100">
-                  Welcome to JMT Bistro
-                </span>
-                <p className="text-xl italic text-slate-100">
-                  A place to lift your spirit
-                </p>
-              </div>
+            >
+              <span className=" text-center text-5xl  text-slate-100">
+                Welcome to JMT Bistro
+              </span>
+              <p className="text-xl italic text-slate-100">
+                A place to lift your spirit
+              </p>
             </div>
           </div>
         </div>
-        <div className="flex flex-col py-2 text-center">
-          {/* <hr className="mx-auto my-4 h-1 w-48 rounded border-0 bg-gray-300 dark:bg-gray-700 md:my-10" /> */}
+      </div>
+      <div className="flex flex-col py-2 text-center">
+        {/* <hr className="mx-auto my-4 h-1 w-48 rounded border-0 bg-gray-300 dark:bg-gray-700 md:my-10" /> */}
 
-          <div className="border-1 border-slate-900 ">
-            <a className=" text-3xl">Cocktail Released</a>
-            <p className="italic">
-              Cocktails inspired by local ingredients and fascinating stories
-            </p>
-            <CocktailSection />
-          </div>
-          {/* <hr className="mx-auto my-4 h-1 w-48 rounded border-0 bg-gray-300 dark:bg-gray-700 md:my-10" /> */}
+        <div className="border-1 border-slate-900 ">
+          <a className=" text-3xl">Cocktail Released</a>
+          <p className="italic">
+            Cocktails inspired by local ingredients and fascinating stories
+          </p>
+          <CocktailSection />
+        </div>
+        {/* <hr className="mx-auto my-4 h-1 w-48 rounded border-0 bg-gray-300 dark:bg-gray-700 md:my-10" /> */}
 
-          <div className="border-1 border-slate-900 ">
-            <h2 className="text-3xl">Reviews</h2>
-            <div className="container pt-3">
-              <ReviewsPosts />
-              {!isSignedIn && (
-                <span className="flex justify-center pb-3 italic text-slate-400">
-                  <SignInButton mode="modal">
-                    <button className="btn p-3 text-xl italic">
-                      <span className="font-bold text-slate-600">Sign in</span>
-                      <span> to leave your review🥰</span>
-                    </button>
-                  </SignInButton>
-                </span>
-              )}
-              <div>
-                {isSignedIn && !reviewClicked && (
-                  <button
-                    onClick={(e) => {
-                      e.preventDefault();
-                      setReviewClicked(!reviewClicked);
-                    }}
-                    className="bold rounded-xl border bg-slate-800 p-3 text-xl text-slate-100"
-                  >
-                    Leave your review!
+        <div className="border-1 border-slate-900 ">
+          <h2 className="text-3xl">Reviews</h2>
+          <div className="container pt-3">
+            <ReviewsPosts />
+            {!isSignedIn && (
+              <span className="flex justify-center pb-3 italic text-slate-400">
+                <SignInButton mode="modal">
+                  <button className="btn p-3 text-xl italic">
+                    <span className="font-bold text-slate-600">Sign in</span>
+                    <span> to leave your review🥰</span>
                   </button>
-                )}
-              </div>
-              {isSignedIn && reviewClicked && (
-                <div className="flex p-6">
-                  <CreatePostWizard />
-                </div>
+                </SignInButton>
+              </span>
+            )}
+            <div>
+              {isSignedIn && !reviewClicked && (
+                <button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setReviewClicked(!reviewClicked);
+                  }}
+                  className="bold rounded-xl border bg-slate-800 p-3 text-xl text-slate-100"
+                >
+                  Leave your review!
+                </button>
               )}
             </div>
+            {isSignedIn && reviewClicked && (
+              <div className="flex p-6">
+                <CreatePostWizard />
+              </div>
+            )}
           </div>
         </div>
-      </PageLayout>
+      </div>
     </>
   );
 };

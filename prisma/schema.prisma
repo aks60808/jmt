@@ -24,10 +24,8 @@ model Cocktail {
   name       String   @db.VarChar(255)
   createdAt  DateTime  @default(now())
   base       String @db.VarChar(255)
-  story      String @db.VarChar(255)
-  recipe     Json @db.Json 
-
-  @@index([name])
+  story      String @db.VarChar(500)
+  recipe     Json @db.Json
   
 
 }

@@ -8,7 +8,7 @@ import { toast } from "react-hot-toast";
 import { set } from "zod";
 const NavBar = () => {
   const { isSignedIn, user } = useUser();
-
+  const isAdmin = user?.publicMetadata.role === "admin";
   const [clicked, setClicked] = React.useState(false);
 
   function handleClick() {
@@ -39,6 +39,11 @@ const NavBar = () => {
             <Link className="px-3 py-4 hover:text-slate-400" href="/request">
               Request a Drink
             </Link>
+            {isAdmin && (
+              <Link className="px-3 py-4 hover:text-slate-400" href="/admin">
+                Admin
+              </Link>
+            )}
           </div>
         </div>
         {/* manage user state */}
@@ -91,6 +96,14 @@ const NavBar = () => {
         >
           Request a Drink
         </Link>
+        {isAdmin && (
+          <Link
+            className="block px-2 py-3 text-sm hover:text-slate-400"
+            href="/admin"
+          >
+            Admin
+          </Link>
+        )}
         {!isSignedIn && (
           <a className="block px-2 py-3 text-sm hover:text-slate-400">
             <SignInButton mode="modal">
