@@ -7,6 +7,9 @@ await import("./src/env.mjs");
 /** @type {import("next").NextConfig} */
 const config = {
   reactStrictMode: true,
+  experimental: {
+    esmExternals: false, // THIS IS THE FLAG THAT MATTERS
+  },
 
   /**
    * If you have `experimental: { appDir: true }` set, then you must comment the below `i18n` config
@@ -15,7 +18,7 @@ const config = {
    * @see https://github.com/vercel/next.js/issues/41980
    */
   images: {
-    domains: ["images.clerk.dev"],
+    domains: ["images.clerk.dev", "uploadthing.com"],
   },
   i18n: {
     locales: ["en"],

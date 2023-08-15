@@ -4,12 +4,15 @@ import Footer from "./footer";
 
 export const PageLayout = (props: PropsWithChildren) => {
   return (
-    <main className=" flex h-screen flex-col">
-      <div className="">
+    <main className=" flex  flex-col  overscroll-none">
+      <div className="flex">
         <NavBar />
       </div>
-      <div className="mb-20 max-h-full overflow-auto">{props.children}</div>
-      <div className="fixed bottom-0 block  w-full bg-gray-800 p-1">
+
+      <div className="flex max-h-full flex-col overflow-auto ">
+        {props.children}
+      </div>
+      <div className=" flex">
         <Footer />
       </div>
     </main>

@@ -1,41 +1,36 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-
-
-
 generator client {
   provider = "prisma-client-js"
 }
+
 datasource db {
-  provider = "mysql"
-  url = env("DATABASE_URL")
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
   relationMode = "prisma"
 }
 
 model Example {
-    id        String   @id @default(cuid())
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Cocktail {
-  id         String    @id @default(cuid())
-  name       String   @db.VarChar(255)
-  createdAt  DateTime  @default(now())
-  base       String @db.VarChar(255)
-  story      String @db.VarChar(500)
-  recipe     Json @db.Json
-  
-
+  id        String   @id @default(cuid())
+  name      String   @db.VarChar(255)
+  createdAt DateTime @default(now())
+  base      String   @db.VarChar(255)
+  story     String   @db.VarChar(500)
+  recipe    String   @db.VarChar(255) @default("")
+  ingredients String  @db.VarChar(255) @default("")
+  imageUrl  String   @db.VarChar(255) @default("")
 }
 
 model Post {
-    id        String   @id @default(cuid())
-    createdAt DateTime @default(now())
-    rate      Float    @default(5)
-    content  String @db.VarChar(255)
-    authorId String
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  content   String   @db.VarChar(255)
+  authorId  String
+  rate      Float    @default(5)
 
-    @@index([authorId])
+  @@index([authorId])
 }

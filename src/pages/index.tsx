@@ -130,11 +130,23 @@ const CocktailSection = () => {
   return (
     <div>
       <ul className="flex flex-wrap  justify-evenly p-2">
-        {/* {[...data]?.map((cocktail) => {
-          return <li key={cocktail.name}>{cocktail.name}</li>;
-        })} */}
+        {[...data]?.map((cocktail) => {
+          return (
+            <li key={cocktail.name}>
+              <li className="p-2">
+                <Image
+                  width={100}
+                  height={200}
+                  alt="cocktail1"
+                  src={cocktail.imageUrl}
+                />
+                {cocktail.name}
+              </li>
+            </li>
+          );
+        })}
 
-        <li className="p-2">
+        {/* <li className="p-2">
           <Image
             width={100}
             height={200}
@@ -151,7 +163,7 @@ const CocktailSection = () => {
             src="/cocktail1.jpg"
           />
           {data[1]?.name}
-        </li>
+        </li> */}
       </ul>
     </div>
   );

@@ -16,7 +16,7 @@ import type {
   SignedInAuthObject,
   SignedOutAuthObject,
 } from "@clerk/nextjs/server";
-import { useUser } from "@clerk/nextjs";
+import { clerkClient } from "@clerk/nextjs";
 /**
  * 1. CONTEXT
  *
@@ -117,11 +117,12 @@ const isAuthed = t.middleware(({ next, ctx }) => {
 
 export const privateProcedure = t.procedure.use(isAuthed);
 
-const isAdmin = t.middleware(({ next, ctx }) => {
+const isAdmin = t.middleware(async ({ next, ctx }) => {
   if (!ctx.auth.userId) {
     throw new TRPCError({ code: "UNAUTHORIZED" });
   }
-  const { user } = useUser();
+  const user = await clerkClient.users.getUser(ctx.auth.userId);
+
   if (!user) throw new TRPCError({ code: "UNAUTHORIZED" });
   if (user.publicMetadata.role !== "admin") {
     throw new TRPCError({ code: "UNAUTHORIZED" });
