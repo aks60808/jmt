@@ -12,7 +12,14 @@ const CocktailPage = () => {
   return (
     <div className=" flex h-full w-full flex-col gap-2 sm:flex-row">
       <div className="flex justify-center  p-2 ">
-        <Image width={200} height={400} src={data?.imageUrl} />
+        {data?.imageUrl && (
+          <Image
+            alt={data.name}
+            width={200}
+            height={400}
+            src={data?.imageUrl}
+          />
+        )}
       </div>
       <div className="flex-col p-3 text-center sm:text-left">
         <h1 className=" text-4xl ">{data?.name}</h1>
