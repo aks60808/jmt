@@ -135,7 +135,7 @@ const CocktailSection = () => {
               key={cocktail.name}
               className="flex flex-col  justify-center  p-2"
             >
-              <Link href={`/cocktail/${cocktail.id}`}>
+              <Link href={`/cocktail/id/${cocktail.id}`}>
                 <div className="flex h-40 w-40 justify-center">
                   <Image
                     width={100}

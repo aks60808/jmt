@@ -6,9 +6,9 @@ import { authMiddleware } from "@clerk/nextjs";
 export default authMiddleware({
   publicRoutes: [
     "/",
-    "/about",
     "/api/trpc/posts.getAll,cocktails.getAll",
-    "/request",
+    "/api/trpc/cocktails.getById",
+    "/cocktail/id/:path*",
   ],
 });
 // Stop Middleware running on static files

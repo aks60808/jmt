@@ -37,7 +37,7 @@ export const CocktailTable = (props: { cocktailData: CocktailCollection }) => {
             {cocktailData.map((cocktail) => (
               <TableRow key={cocktail.id}>
                 <TableCell>
-                  <Link href={`/cocktail/${cocktail.id}`}>
+                  <Link href={`/cocktail/id/${cocktail.id}`}>
                     <Button className="border border-slate-600 px-2 font-medium hover:bg-slate-400">
                       {cocktail.name}
                     </Button>
