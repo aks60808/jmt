@@ -36,7 +36,10 @@ const NavBar = () => {
             <Link className="px-3 py-4 hover:text-slate-400" href="/">
               Home
             </Link>
-            <Link className="px-3 py-4 hover:text-slate-400" href="/request">
+            <Link
+              className="px-3 py-4 hover:text-slate-400"
+              href="/cocktail/request"
+            >
               Request a Drink
             </Link>
             {isAdmin && (
@@ -92,7 +95,7 @@ const NavBar = () => {
         </Link>
         <Link
           className="block px-2 py-3 text-sm hover:text-slate-400"
-          href="/request"
+          href="/cocktail/request"
         >
           Request a Drink
         </Link>

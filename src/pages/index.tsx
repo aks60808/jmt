@@ -45,7 +45,6 @@ const PostView = (props: PostWIthUser) => {
 };
 const CreatePostWizard = () => {
   const { user } = useUser();
-  console.log("user", user);
   const [hoverRating, setHoverRating] = useState<number | null>(null);
   const [input, setInput] = useState<string>("");
 
@@ -132,38 +131,25 @@ const CocktailSection = () => {
       <ul className="flex flex-wrap  justify-evenly p-2">
         {[...data]?.map((cocktail) => {
           return (
-            <li key={cocktail.name}>
-              <li className="p-2">
-                <Image
-                  width={100}
-                  height={200}
-                  alt="cocktail1"
-                  src={cocktail.imageUrl}
-                />
+            <li
+              key={cocktail.name}
+              className="flex flex-col  justify-center  p-2"
+            >
+              <Link href={`/cocktail/${cocktail.id}`}>
+                <div className="flex h-40 w-40 justify-center">
+                  <Image
+                    width={100}
+                    height={100}
+                    alt="cocktail1"
+                    src={cocktail.imageUrl}
+                  />
+                </div>
+
                 {cocktail.name}
-              </li>
+              </Link>
             </li>
           );
         })}
-
-        {/* <li className="p-2">
-          <Image
-            width={100}
-            height={200}
-            alt="cocktail1"
-            src="/cocktail1.jpg"
-          />
-          {data[0]?.name}
-        </li>
-        <li className="p-2">
-          <Image
-            width={100}
-            height={200}
-            alt="cocktail1"
-            src="/cocktail1.jpg"
-          />
-          {data[1]?.name}
-        </li> */}
       </ul>
     </div>
   );

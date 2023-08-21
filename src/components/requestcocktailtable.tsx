@@ -11,8 +11,11 @@ import type { RouterOutputs } from "~/utils/api";
 import { Button } from "@/components/ui/button";
 import { ActionDropdownMenu } from "./dropdownmenu";
 import Link from "next/dist/client/link";
+import { Input } from "@/components/ui/input";
 type CocktailCollection = RouterOutputs["cocktails"]["getAll"];
-export const CocktailTable = (props: { cocktailData: CocktailCollection }) => {
+export const RequestCocktailTable = (props: {
+  cocktailData: CocktailCollection;
+}) => {
   const { cocktailData } = props;
 
   return (
@@ -45,10 +48,9 @@ export const CocktailTable = (props: { cocktailData: CocktailCollection }) => {
                 </TableCell>
                 <TableCell>{cocktail.base}</TableCell>
 
-                <TableCell className="text-right">
-                  <div className="flex justify-end gap-1">
-                    <ActionDropdownMenu />
-                  </div>
+                <TableCell className="w-40 text-right">
+                  <Input type="number" name="amount" placeholder="0" />
+                  {/* <input type="number" name="amount" /> */}
                 </TableCell>
               </TableRow>
             ))}

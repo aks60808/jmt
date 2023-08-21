@@ -12,6 +12,18 @@ import {
 // import type { Cocktail } from "@prisma/client";
 
 export const cocktailsRouter = createTRPCRouter({
+  getById: publicProcedure
+    .input(z.object({ id: z.string() }))
+    .query(async ({ ctx, input }) => {
+      const cocktail = await ctx.prisma.cocktail.findUnique({
+        where: { id: input.id },
+      });
+
+      if (!cocktail) throw new TRPCError({ code: "NOT_FOUND" });
+
+      return cocktail;
+    }),
+
   getAll: publicProcedure.query(async ({ ctx }) => {
     const cocktails = await ctx.prisma.cocktail.findMany({
       take: 100,

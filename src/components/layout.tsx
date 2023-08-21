@@ -9,7 +9,7 @@ export const PageLayout = (props: PropsWithChildren) => {
         <NavBar />
       </div>
 
-      <div className="flex max-h-full flex-col overflow-auto ">
+      <div className="mb-20 flex max-h-full flex-col overflow-auto ">
         {props.children}
       </div>
       <div className=" flex">
