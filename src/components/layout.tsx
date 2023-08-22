@@ -4,7 +4,7 @@ import Footer from "./footer";
 
 export const PageLayout = (props: PropsWithChildren) => {
   return (
-    <main className=" flex  flex-col  overscroll-none">
+    <main className="flex   select-none  flex-col overscroll-none">
       <div className="flex">
         <NavBar />
       </div>

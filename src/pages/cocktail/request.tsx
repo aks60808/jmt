@@ -23,7 +23,6 @@ const RequestCocktailPage = () => {
         <span>{user.fullName}</span>
       </div>
 
-      <div>Cocktails</div>
       <RequestCocktailTable cocktailData={data} />
     </div>
   );

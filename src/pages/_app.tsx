@@ -13,6 +13,7 @@ const MyApp: AppType = ({ Component, pageProps }) => {
         <meta name="description" content="have a nice day and 🍷" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+
       <PageLayout>
         <Component {...pageProps} />
       </PageLayout>
